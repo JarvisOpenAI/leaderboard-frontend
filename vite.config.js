@@ -39,8 +39,3 @@ export default defineConfig({
   },
 });
 
-// vue.config.js
-module.exports = {
-  outputDir: 'dist',
-  publicPath: process.env.NODE_ENV === 'production' ? '/仓库名称/' : '/'
-}
