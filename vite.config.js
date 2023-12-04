@@ -8,6 +8,10 @@ import vue from '@vitejs/plugin-vue';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: "/leaderboard-frontend/",
+  build: {
+    outDir: "docs"
+  },
   plugins: [
     vue(),
     AutoImport({
@@ -34,3 +38,9 @@ export default defineConfig({
     },
   },
 });
+
+// vue.config.js
+module.exports = {
+  outputDir: 'dist',
+  publicPath: process.env.NODE_ENV === 'production' ? '/仓库名称/' : '/'
+}
