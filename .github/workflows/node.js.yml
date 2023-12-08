@@ -37,8 +37,7 @@ jobs:
         cache: 'npm'
     - name: Install and Build   # 安装依赖、打包，如果提前已打包好无需这一步
       run: |
-        node -v
-        npm install gh-pages --save-dev
+        npm install
         npm run build
     - name: Add 404.html
       run: cp dist/index.html dist/404.html
