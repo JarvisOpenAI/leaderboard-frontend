@@ -41,6 +41,8 @@ jobs:
         npm run build
     - name: Add 404.html
       run: cp dist/index.html dist/404.html
+    - name: Add .nojekyll
+      run: touch dist/.nojekyll
     - name: Deploy   # 部署
       uses: JamesIves/github-pages-deploy-action@v4
       with:
