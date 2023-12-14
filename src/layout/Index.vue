@@ -24,6 +24,14 @@
               </span>
               <template #title>{{ $t('team.team') }}</template>
             </el-menu-item>
+            <el-menu-item index="/host" v-if="store.state.isHost === 1">
+              <span class="icon-btn mr16">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-a-HostedChallenge"></use>
+                </svg>
+              </span>
+              <template #title>{{ $t('host.hostchall') }}</template>
+            </el-menu-item>
           </el-menu>
         </el-aside>
 
@@ -49,11 +57,11 @@ import { useRouter, useRoute } from 'vue-router';
 import Breadcrumb from '@/components/Breadcrumb.vue';
 import TopNav from '@/components/TopNav.vue';
 import { useStore } from 'vuex';
+import { verifyHostUser } from '@/api/host';
 
 const route = useRoute();
 const router = useRouter();
 const store = useStore();
-
 const activeSecondMenu = computed(() => {
   const { meta, path } = route;
   if (meta && meta.activeMenu) {
@@ -72,6 +80,11 @@ const getCachedComponentNames = () => {
   }
   return cachedComponents;
 };
+onMounted(() => {
+  if (store.state.token && store.state.isHost !== 0 && store.state.isHost !== 1) {
+    store.dispatch('verifyHostUser');
+  }
+});
 </script>
 
 <style lang="scss" scoped>

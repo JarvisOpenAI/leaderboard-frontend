@@ -7,16 +7,11 @@
 </template>
 
 <script setup>
-import { computed, onMounted } from 'vue';
+import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 const route = useRoute();
 const levelList = computed(() => {
   return route.matched.filter((item) => item.meta && item.meta.title);
-});
-onMounted(() => {
-  setTimeout(() => {
-    console.log('route.matched', route.matched);
-  }, 1000);
 });
 </script>
 <style lang="scss" scoped>

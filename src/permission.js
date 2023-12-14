@@ -1,7 +1,7 @@
 import router from './router';
 import store from './store';
 
-const whiteList = ['/auth/verifyEmail', '/challenge/detail/100'];
+const whiteList = ['/auth/verifyEmail', '/challenge/home'];
 
 // 守卫
 router.beforeEach((to, from, next) => {
@@ -27,13 +27,28 @@ router.beforeEach((to, from, next) => {
                 next({ path: '/' });
               });
           });
+      } else if (to.path.startsWith('/host')) {
+        if (store.state.isHost === 1) {
+          next();
+        } else if (store.state.isHost == 0) {
+          next({ path: '/' });
+        } else {
+          store
+            .dispatch('verifyHostUser')
+            .then((res) => {
+              next();
+            })
+            .catch((err) => {
+              next({ path: '/' });
+            });
+        }
       } else {
         next();
       }
     }
   } else {
     // 没有token
-    if (to.path.startsWith('/auth/') || whiteList.indexOf(to.path) !== -1) {
+    if (to.path.startsWith('/auth/') || to.path.startsWith('/challenge/detail/') || whiteList.indexOf(to.path) !== -1) {
       // 在免登录白名单，直接进入
       next();
     } else {

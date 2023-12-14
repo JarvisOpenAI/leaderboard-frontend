@@ -60,7 +60,7 @@ const { t } = useI18n();
 const router = useRouter();
 const store = useStore();
 
-const props = defineProps(['raceId']);
+const props = defineProps(['challengeId']);
 const emit = defineEmits(['callback']);
 const pager = reactive({
   total: 0,
@@ -112,7 +112,7 @@ const saveTeam = () => {
     });
 };
 const participate = () => {
-  partChallenge(props.raceId, activeId.value).then((res) => {
+  partChallenge(props.challengeId, activeId.value).then((res) => {
     emit('callback');
   });
 };

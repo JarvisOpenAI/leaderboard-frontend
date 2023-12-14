@@ -166,31 +166,36 @@
 
 <script setup>
 import { computed, onBeforeMount, onMounted, reactive, ref } from 'vue';
-import { challengePhase, getSubmission, updateSubmission, updateSubmissionMeta } from '@/api/challenge';
+import { getSubmission, updateSubmission, updateSubmissionMeta } from '@/api/challenge';
 import { formatTime, oaMessageBox } from '@/utils/tool';
 import { getJwtToken } from '@/utils/auth';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
-const props = defineProps(['raceId', 'approved', 'allowCancel']);
+const props = defineProps({
+  challengeId: [String, Number],
+  approved: Boolean,
+  allowCancel: Boolean,
+  phases: {
+    type: Array,
+    default: [],
+  },
+});
 const emit = defineEmits(['callback']);
-const phases = ref([]);
 const curPhase = ref({});
 const handleSelect = (item) => {
   curPhase.value = item;
 };
 onMounted(() => {
-  challengePhase(props.raceId).then((res) => {
-    phases.value = res.results || [];
-    if (phases.value.length > 0) {
-      curPhase.value = phases.value[0];
-    }
-  });
+  if (props.phases.length > 0) {
+    curPhase.value = props.phases[0];
+  }
 });
+
 const commandTxt1 = 'pip install "arena"';
 const commandTxt2 = `arena set_token ${getJwtToken()}`;
 const commandTxt3 = computed(() => {
-  return `arena challenge ${props.raceId} phase ${curPhase.value.id} submit --file <submission_file_path> --large`;
+  return `arena challenge ${props.challengeId} phase ${curPhase.value.id} submit --file <submission_file_path> --large`;
 });
 const deregister = () => {
   emit('callback');
@@ -208,14 +213,14 @@ const handleChangePhase = () => {
   getSubmissionList();
 };
 const getSubmissionList = () => {
-  getSubmission(props.raceId, selectedPhaseId.value, { page: pager.pageNum }).then((res) => {
+  getSubmission(props.challengeId, selectedPhaseId.value, { page: pager.pageNum }).then((res) => {
     pager.total = res.count;
     let result = res.results || [];
     submissionList.value = pager.pageNum === 1 ? result : submissionList.value.concat(result);
   });
 };
 const beforeChange = (row) => {
-  return updateSubmission(props.raceId, selectedPhaseId.value, row.id, {
+  return updateSubmission(props.challengeId, selectedPhaseId.value, row.id, {
     is_public: !row.is_public,
   }).then((res) => {
     ElMessage.success(res.is_public ? t('submission.changeMade') + t('submission.public') : t('submission.changeMade') + t('submission.private'));
@@ -232,7 +237,7 @@ const cancelSubmis = (row) => {
     message: t('submission.sureCancelSubmission'),
   })
     .then(() => {
-      updateSubmissionMeta(props.raceId, row.id, { status: 'cancelled' }).then((res) => {
+      updateSubmissionMeta(props.challengeId, row.id, { status: 'cancelled' }).then((res) => {
         ElMessage.success(t('submission.cancelSuccess'));
       });
     })

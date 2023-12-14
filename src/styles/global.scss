@@ -13,6 +13,9 @@ body {
     --el-button-active-border-color: #2a41a8;
     --el-button-active-bg-color: #2a41a8;
   }
+  .el-checkbox {
+    --el-checkbox-input-border: 1px solid #b1bbcb;
+  }
   .el-table {
     --el-table-header-bg-color: #364052;
   }
@@ -384,5 +387,79 @@ body {
   .btn-next:disabled,
   .btn-prev:disabled {
     background-color: transparent;
+  }
+}
+
+// 已选择项tag框
+.custom-selected-tag {
+  &.el-tag {
+    color: #ffffff;
+    background-color: #383f4d;
+    border-color: #383f4d;
+
+    .el-tag__close:not(:hover) {
+      color: #ffffff;
+    }
+  }
+}
+
+/* 通过wangEditor editor.getHtml() 预览时,专门样式 */
+.editor-content-view {
+  p,
+  li {
+    white-space: pre-wrap; /* 保留空格 */
+  }
+  blockquote,
+  li,
+  p,
+  td,
+  th {
+    line-height: 1.5;
+  }
+
+  img {
+    max-width: 100%;
+    min-height: 20px;
+    min-width: 20px;
+  }
+
+  blockquote {
+    border-left: 8px solid #d0e5f2;
+    padding: 10px 10px;
+    margin: 10px 0;
+    background-color: #f1f1f1;
+  }
+
+  code {
+    font-family: monospace;
+    background-color: #eee;
+    padding: 3px;
+    border-radius: 3px;
+  }
+  pre > code {
+    display: block;
+    padding: 10px;
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+  td,
+  th {
+    border: 1px solid #ccc;
+    min-width: 50px;
+    height: 20px;
+  }
+  th {
+    background-color: #f1f1f1;
+  }
+
+  ul,
+  ol {
+    padding-left: 20px;
+  }
+
+  input[type='checkbox'] {
+    margin-right: 5px;
   }
 }

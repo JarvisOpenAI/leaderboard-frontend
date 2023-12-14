@@ -1,9 +1,9 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4279683 */
-  src: url('iconfont.woff2?t=1700037855963') format('woff2'),
-       url('iconfont.woff?t=1700037855963') format('woff'),
-       url('iconfont.ttf?t=1700037855963') format('truetype'),
-       url('iconfont.svg?t=1700037855963#iconfont') format('svg');
+  src: url('iconfont.woff2?t=1702294550421') format('woff2'),
+       url('iconfont.woff?t=1702294550421') format('woff'),
+       url('iconfont.ttf?t=1702294550421') format('truetype'),
+       url('iconfont.svg?t=1702294550421#iconfont') format('svg');
 }
 
 .iconfont {
@@ -12,6 +12,34 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-rili:before {
+  content: "\e6eb";
+}
+
+.icon-shouqi:before {
+  content: "\e6ec";
+}
+
+.icon-zhankai:before {
+  content: "\e6ed";
+}
+
+.icon-a-HostedChallenge:before {
+  content: "\e6e7";
+}
+
+.icon-Delete:before {
+  content: "\e6e8";
+}
+
+.icon-a-CreatePhases:before {
+  content: "\e6e9";
+}
+
+.icon-Search:before {
+  content: "\e6ea";
 }
 
 .icon-Cancel:before {

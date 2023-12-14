@@ -33,6 +33,7 @@ export const errorMsg = [
     en: 'Sorry, other team member(s) have already participated in the Challenge. Please participate with a different team!',
   },
   { zh: '比赛不存在', en: 'Challenge does not exist' },
+  { zh: '比赛不存在', en: 'Challenge does not exist!' },
   { zh: '您无权提出此请求', en: 'You are not authorized to make this request' },
   { zh: '队伍名已被占用！', en: 'The team name has already be used!' },
   { zh: '已提交参赛作品的参赛队伍不能被取消注册。', en: 'Participant teams which have made submissions to a challenge cannot be deregistered.' },
@@ -41,7 +42,9 @@ export const errorMsg = [
   { zh: '抱歉，比赛已被移除!', en: 'Sorry, the challenge was removed!' },
   { zh: '抱歉，排行榜是不公开的!', en: 'Sorry, the leaderboard is not public!' },
   { zh: '您还没有参加比赛', en: "You haven't participated in the challenge" },
-  { zh: '您不是参与者!', en: "You are not a participant!" },
+  { zh: '您不是参与者!', en: 'You are not a participant!' },
+  { zh: '在同一比赛中代号的字段必须是唯一的', en: 'The fields codename, challenge must make a unique set.' },
+  { zh: '您不是这个团队的一员!', en: 'You are not a member of this team!' },
 ];
 
 export function getErrMsg(msg) {

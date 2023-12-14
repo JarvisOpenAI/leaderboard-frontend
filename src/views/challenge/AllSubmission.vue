@@ -55,11 +55,11 @@ import { formatTime } from '@/utils/tool';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
-const props = defineProps(['raceId']);
+const props = defineProps(['challengeId']);
 const phases = ref([]);
 
 onMounted(() => {
-  challengePhase(props.raceId).then((res) => {
+  challengePhase(props.challengeId).then((res) => {
     phases.value = res.results || [];
   });
 });
@@ -76,7 +76,7 @@ const handleChangePhase = () => {
   getSubmissionList();
 };
 const getSubmissionList = () => {
-  getAllSubmissions(props.raceId, selectedPhaseId.value, { page: pager.pageNum }).then((res) => {
+  getAllSubmissions(props.challengeId, selectedPhaseId.value, { page: pager.pageNum }).then((res) => {
     pager.total = res.count;
     let result = res.results || [];
     submissionList.value = pager.pageNum === 1 ? result : submissionList.value.concat(result);

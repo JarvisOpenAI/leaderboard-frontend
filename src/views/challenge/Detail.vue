@@ -3,35 +3,40 @@
     <div class="banner"></div>
     <div class="digest">
       <div class="flex-between mb20" style="height: 32px">
-        <div class="title">{{ $t(`race_${raceId}.title`) }}</div>
+        <div class="title">{{ detailInfo.title }}</div>
         <el-button v-if="teamDetail?.approved" type="primary" @click="deregister" class="ml16">{{ $t('submission.deregister') }}</el-button>
       </div>
       <div class="subTitle mb20">
-        {{ $t(`race_${raceId}.describe`) }}
+        <div v-html="detailInfo.short_description" class="editor-content-view"></div>
       </div>
       <div class="flex-center">
-        <div class="custom-tag">2023/04/01-2023/12/31</div>
+        <div class="custom-tag">{{ formatTime(detailInfo.start_date) }} -- {{ formatTime(detailInfo.end_date) }}</div>
       </div>
     </div>
     <div class="content">
-      <el-tabs v-model="activeName" class="demo-tabs" @tab-change="handleClick">
+      <el-tabs v-model="activeName" class="demo-tabs">
         <el-tab-pane :label="$t('challenge.overview')" name="overview">
-          <overview></overview>
+          <overview :detailInfo="detailInfo" :phases="phases"></overview>
         </el-tab-pane>
         <el-tab-pane :label="$t('challenge.participate')" name="participate" v-if="!teamDetail">
-          <participate :raceId="raceId" @callback="getPartTeam('submission')"></participate>
+          <participate :challengeId="challengeId" @callback="getPartTeam('submission')"></participate>
         </el-tab-pane>
         <el-tab-pane :label="$t('challenge.submission')" name="submission" v-else>
-          <submission :raceId="raceId" :approved="teamDetail.approved" :allowCancel="allowCancel" @callback="deregister"></submission>
+          <submission
+            :challengeId="challengeId"
+            :approved="teamDetail.approved"
+            :allowCancel="allowCancel"
+            :phases="phases"
+            @callback="deregister"></submission>
         </el-tab-pane>
         <el-tab-pane :label="$t('challenge.leaderboard')" name="leaderboard">
-          <leader-board :raceId="raceId"></leader-board>
+          <leader-board :challengeId="challengeId"></leader-board>
         </el-tab-pane>
         <el-tab-pane :label="$t('challenge.approval')" name="approval" v-if="isChallengeHost && manualApproval">
-          <approval :raceId="raceId"></approval>
+          <approval :challengeId="challengeId"></approval>
         </el-tab-pane>
         <el-tab-pane :label="$t('challenge.allSubmission')" name="allSubmission" v-if="isChallengeHost">
-          <all-submission :raceId="raceId"></all-submission>
+          <all-submission :challengeId="challengeId"></all-submission>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -47,22 +52,23 @@ import LeaderBoard from '@/views/challenge/Leaderboard.vue';
 import Approval from '@/views/challenge/Approval.vue';
 import { onBeforeMount, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { challengeTeam, deregisterChallenge, getChallengeUser, getChallengeDetail } from '@/api/challenge';
+import { challengeTeam, deregisterChallenge, getChallengeUser, getChallengeDetail, challengePhase } from '@/api/challenge';
 import { getAuthToken } from '@/api/account.js';
 import { setJwtToken } from '@/utils/auth';
 import { useI18n } from 'vue-i18n';
-import { oaMessageBox } from '@/utils/tool';
+import { formatTime, oaMessageBox } from '@/utils/tool';
 import { useStore } from 'vuex';
 
 const { t } = useI18n();
 const route = useRoute();
 const store = useStore();
-const raceId = route.params.raceId;
+const challengeId = route.params.challengeId;
 const activeName = ref('overview');
-const handleClick = (tab) => {};
 const teamDetail = ref();
+const detailInfo = ref({});
+const phases = ref([]);
 const getPartTeam = (tabId) => {
-  challengeTeam(raceId).then((res) => {
+  challengeTeam(challengeId).then((res) => {
     teamDetail.value = res;
     if (tabId) {
       activeName.value = tabId;
@@ -75,12 +81,19 @@ const clearPartTeam = (tabId) => {
 };
 onBeforeMount((res) => {
   challengeDetail();
+  getPhases();
   if (store.state.token) {
     getAuthKey();
     getUserRole();
     getPartTeam();
   }
 });
+
+const getPhases = () => {
+  challengePhase(challengeId).then((res) => {
+    phases.value = res.results || [];
+  });
+};
 
 const getAuthKey = () => {
   getAuthToken().then((res) => {
@@ -95,7 +108,7 @@ const deregister = () => {
     message: t('submission.deregisterConfirm'),
   })
     .then(() => {
-      deregisterChallenge(raceId).then((res) => {
+      deregisterChallenge(challengeId).then((res) => {
         ElMessage.success(t('submission.deregisterSuccess'));
         clearPartTeam('overview');
       });
@@ -107,15 +120,16 @@ const isChallengeHost = ref(false); // 是否是该比赛的主办方
 const manualApproval = ref(false); // 比赛团队是否需要人工审核
 const allowCancel = ref(false); // 是否允许取消正在执行的任务
 const getUserRole = () => {
-  getChallengeUser(raceId).then((res) => {
+  getChallengeUser(challengeId).then((res) => {
     isChallengeHost.value = res.is_challenge_host;
   });
 };
 
 const challengeDetail = () => {
-  getChallengeDetail(raceId).then((res) => {
+  getChallengeDetail(challengeId).then((res) => {
     manualApproval.value = res.manual_participant_approval;
     allowCancel.value = res.allow_cancel_running_submissions;
+    detailInfo.value = res || {};
   });
 };
 </script>

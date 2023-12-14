@@ -1,11 +1,13 @@
 import { createStore } from 'vuex';
 import { getUser, login, register, logout } from '@/api/user.js';
+import { verifyHostUser } from '@/api/host.js';
 import { getToken, setToken, removeToken, removeJwtToken } from '@/utils/auth';
 
 export default createStore({
   state: {
     userInfo: {},
     token: getToken() || '',
+    isHost: -1, // -1 未知， 0 不是host，1 是host
   },
   getters: {},
   mutations: {
@@ -15,9 +17,13 @@ export default createStore({
     setToken(state, payload) {
       state.token = payload;
     },
+    setIsHost(state, payload) {
+      state.isHost = payload;
+    },
     clearStore(state) {
       state.userInfo = {};
       state.token = '';
+      state.isHost = -1;
     },
   },
   actions: {
@@ -83,6 +89,18 @@ export default createStore({
             reject(error);
           });
       });
+    },
+
+    // 验证用户是否是host
+    verifyHostUser({ commit }) {
+      return verifyHostUser().then(
+        (res) => {
+          commit('setIsHost', 1);
+        },
+        (err) => {
+          commit('setIsHost', 0);
+        }
+      );
     },
   },
   modules: {},

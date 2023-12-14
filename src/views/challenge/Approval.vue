@@ -33,14 +33,14 @@ import { useI18n } from 'vue-i18n';
 import { oaMessageBox } from '@/utils/tool';
 
 const { t } = useI18n();
-const props = defineProps(['raceId']);
+const props = defineProps(['challengeId']);
 const teams = ref([]);
 
 onMounted(() => {
   getTeams();
 });
 const getTeams = () => {
-  getParticipantTeams(props.raceId).then((res) => {
+  getParticipantTeams(props.challengeId).then((res) => {
     teams.value = res.participant_teams || [];
   });
 };
@@ -58,7 +58,7 @@ const approve = (row) => {
     message: t('approval.approveNote'),
   })
     .then(() => {
-      approveTeam(props.raceId, row.id).then((res) => {
+      approveTeam(props.challengeId, row.id).then((res) => {
         ElMessage.success(t('approval.approveSuccess'));
         getTeams();
       });
@@ -67,7 +67,7 @@ const approve = (row) => {
 };
 
 const disapprove = (row) => {
-  disapproveTeam(props.raceId, row.id).then((res) => {
+  disapproveTeam(props.challengeId, row.id).then((res) => {
     ElMessage.success(t('approval.disapproveSuccess'));
     getTeams();
   });

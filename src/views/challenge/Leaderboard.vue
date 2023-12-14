@@ -27,7 +27,7 @@ import { onMounted, reactive, ref } from 'vue';
 import { getPhaseSplit, getLeaderboard } from '@/api/challenge';
 import { formatTime } from '@/utils/tool';
 
-const props = defineProps(['raceId']);
+const props = defineProps(['challengeId']);
 const curSplitId = ref('');
 const splits = ref([]);
 const isByScore = ref(false);
@@ -35,7 +35,7 @@ const getSplitLabel = (item) => {
   return `Phase: ${item.challenge_phase_name},  Split: ${item.dataset_split_name}`;
 };
 onMounted(() => {
-  getPhaseSplit(props.raceId).then((res) => {
+  getPhaseSplit(props.challengeId).then((res) => {
     splits.value = res || [];
   });
 });

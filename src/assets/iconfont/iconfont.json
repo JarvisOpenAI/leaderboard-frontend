@@ -6,6 +6,55 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "38487965",
+      "name": "rili",
+      "font_class": "rili",
+      "unicode": "e6eb",
+      "unicode_decimal": 59115
+    },
+    {
+      "icon_id": "38487964",
+      "name": "shouqi",
+      "font_class": "shouqi",
+      "unicode": "e6ec",
+      "unicode_decimal": 59116
+    },
+    {
+      "icon_id": "38487963",
+      "name": "zhankai",
+      "font_class": "zhankai",
+      "unicode": "e6ed",
+      "unicode_decimal": 59117
+    },
+    {
+      "icon_id": "38487954",
+      "name": "Hosted Challenge",
+      "font_class": "a-HostedChallenge",
+      "unicode": "e6e7",
+      "unicode_decimal": 59111
+    },
+    {
+      "icon_id": "38487953",
+      "name": "Delete",
+      "font_class": "Delete",
+      "unicode": "e6e8",
+      "unicode_decimal": 59112
+    },
+    {
+      "icon_id": "38487952",
+      "name": "Create Phases",
+      "font_class": "a-CreatePhases",
+      "unicode": "e6e9",
+      "unicode_decimal": 59113
+    },
+    {
+      "icon_id": "38487951",
+      "name": "Search",
+      "font_class": "Search",
+      "unicode": "e6ea",
+      "unicode_decimal": 59114
+    },
+    {
       "icon_id": "38119492",
       "name": "Cancel",
       "font_class": "Cancel",

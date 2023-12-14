@@ -30,7 +30,6 @@ service.interceptors.request.use(
     return config;
   },
   (error) => {
-    console.log(error);
     Promise.reject(error);
   }
 );
@@ -83,6 +82,8 @@ service.interceptors.response.use(
     let isShowMessage = true;
     if (message == 'Network Error') {
       message = i18n.global.t('interfaceException');
+    } else if (response.config?.headers?.noMessage) {
+      isShowMessage = false;
     } else if (message.includes('timeout')) {
       message = i18n.global.t('interfaceTimeout');
     } else if (response.status == 400 && response.data?.password1?.length > 0) {

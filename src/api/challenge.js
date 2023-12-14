@@ -108,3 +108,10 @@ export const updateSubmissionMeta = (challengeId, submissionId, data) =>
     url: `/api/jobs/challenges/${challengeId}/submissions/${submissionId}/update_submission_meta/`,
     data,
   });
+
+// 获取宣传的比赛详情
+export const getChallengeHomeDetail = () =>
+  service({
+    method: 'get',
+    url: `/api/challenges/home`,
+  });
