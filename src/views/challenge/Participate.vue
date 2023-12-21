@@ -39,7 +39,7 @@
       </div>
     </div>
   </div>
-  <div class="notLog">
+  <div class="notLog" v-else>
     <span>{{ $t('challenge.please') }}</span>
     <el-button class="ml8 mr8" type="primary" size="small" style="height: 20px; font-size: 14px; border-radius: 2px" @click="goLogin">
       {{ $t('challenge.login') }}

@@ -231,6 +231,7 @@ export default {
     deregisterTeam: 'Deregister Partipant Team',
     deregisterConfirm: 'Are you sure you want to deregister team?',
     phasePH: 'Select phase',
+    orderPH: 'Order by metric',
     notCancelled: 'Only unproccessed submissions can be cancelled',
     changeMade: 'The submission is made ',
     public: 'public',
@@ -248,6 +249,8 @@ export default {
     verifySubmission: 'Verify submission',
     sureCancelSubmission: 'Are you sure you want to cancel submission?',
     cancelSuccess: 'Submission cancelled successfully!',
+    rerun: 'Rerun',
+    resume: 'Resume',
   },
   leaderboard: {
     team: 'Participant team',

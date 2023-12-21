@@ -95,6 +95,9 @@ body {
   &:hover {
     background: #343c4d;
   }
+  &.disabled {
+    pointer-events: none;
+  }
 }
 
 .icon-btn {

@@ -4,15 +4,13 @@
 
 <script setup>
 import { useRouter } from 'vue-router';
-import { getAllChallenges } from '@/api/host';
+import { getChallengeHomeDetail } from '@/api/challenge';
 
 const router = useRouter();
-getAllChallenges('present', 'approved', 'public', {
-  page: 1,
-}).then(
+getChallengeHomeDetail().then(
   (res) => {
-    if (res?.results.length > 0) {
-      router.push(`/challenge/detail/${res.results[0].id}`);
+    if (res?.id) {
+      router.push(`/challenge/detail/${res.id}`);
     } else {
       router.push(`/challenge`);
     }

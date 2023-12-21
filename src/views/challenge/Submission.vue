@@ -80,7 +80,7 @@
         <div class="subTitle mb24">4. {{ $t('submission.flagTxt') }}</div>
         <div class="subTitle flex-center">
           <span> 5. {{ $t('submission.forMore') }}</span>
-          <el-link type="primary" :underline="false" class="ml5" href="https://cli.synkrotron.ai" target="_blank">
+          <el-link type="primary" :underline="false" class="ml5" href="https://github.com/guardstrikelab/arena-cli" target="_blank">
             {{ $t('submission.referDocument') }}
           </el-link>
         </div>
@@ -95,7 +95,7 @@
       <el-table-column fixed type="index" label="#" width="50" :index="(i) => (i + 1).toString().padStart(2, '0')" />
       <el-table-column prop="status" :label="$t('submission.status')">
         <template #default="{ row }">
-          <span :class="['submis-status', row.status]">{{ row.status.charAt(0).toUpperCase() + row.status.slice(1) }}</span>
+          <span :class="['submis-status', row.status]">{{ row.status?.charAt(0).toUpperCase() + row.status.slice(1) }}</span>
         </template>
       </el-table-column>
       <el-table-column prop="execution_time" :label="$t('submission.executTime')" />
@@ -146,11 +146,29 @@
       </el-table-column>
       <el-table-column fixed="right" :label="$t('operate')">
         <template #default="{ row }">
-          <span class="icon-button" @click="cancelSubmis(row)">
-            <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-Cancel"></use>
-            </svg>
-          </span>
+          <div class="flex">
+            <el-tooltip class="box-item" effect="light" :content="$t('cancel')" placement="top-start">
+              <span class="icon-button mr8" @click="cancelSubmis(row)">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-Cancel"></use>
+                </svg>
+              </span>
+            </el-tooltip>
+            <el-tooltip class="box-item" effect="light" :content="$t('submission.rerun')" placement="top-start" v-if="store.state.isHost === 1">
+              <span class="icon-button mr8" @click="reRun(row)">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-load"></use>
+                </svg>
+              </span>
+            </el-tooltip>
+            <el-tooltip class="box-item" effect="light" :content="$t('submission.resume')" placement="top-start">
+              <span class="icon-button" @click="resume(row)" :class="{ disabled: row.status !== 'failed' }">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-kaishi"></use>
+                </svg>
+              </span>
+            </el-tooltip>
+          </div>
         </template>
       </el-table-column>
     </el-table>
@@ -166,11 +184,13 @@
 
 <script setup>
 import { computed, onBeforeMount, onMounted, reactive, ref } from 'vue';
-import { getSubmission, updateSubmission, updateSubmissionMeta } from '@/api/challenge';
+import { getSubmission, updateSubmission, updateSubmissionMeta, reRunSubmission, resumeSubmission } from '@/api/challenge';
 import { formatTime, oaMessageBox } from '@/utils/tool';
 import { getJwtToken } from '@/utils/auth';
 import { useI18n } from 'vue-i18n';
+import { useStore } from 'vuex';
 
+const store = useStore();
 const { t } = useI18n();
 const props = defineProps({
   challengeId: [String, Number],
@@ -192,10 +212,10 @@ onMounted(() => {
   }
 });
 
-const commandTxt1 = 'pip install "arena"';
+const commandTxt1 = 'pip install arena-cli';
 const commandTxt2 = `arena set_token ${getJwtToken()}`;
 const commandTxt3 = computed(() => {
-  return `arena challenge ${props.challengeId} phase ${curPhase.value.id} submit --file <submission_file_path> --large`;
+  return `arena push <image>:<tag> --phase ${curPhase.value.slug}`;
 });
 const deregister = () => {
   emit('callback');
@@ -239,9 +259,21 @@ const cancelSubmis = (row) => {
     .then(() => {
       updateSubmissionMeta(props.challengeId, row.id, { status: 'cancelled' }).then((res) => {
         ElMessage.success(t('submission.cancelSuccess'));
+        handleChangePhase();
       });
     })
     .catch(() => {});
+};
+const reRun = (row) => {
+  reRunSubmission(row.id).then((res) => {
+    handleChangePhase();
+  });
+};
+
+const resume = (row) => {
+  resumeSubmission(row.id).then((res) => {
+    handleChangePhase();
+  });
 };
 const loadMore = () => {
   pager.pageNum += 1;

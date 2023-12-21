@@ -229,6 +229,7 @@ export default {
     deregisterTeam: '退出比赛',
     deregisterConfirm: '你确定团队要退出比赛吗？',
     phasePH: '选择阶段',
+    orderPH: '排序指标',
     notCancelled: '只有未处理的提交才能取消',
     changeMade: '提交已被置为',
     public: '公开',
@@ -246,6 +247,8 @@ export default {
     verifySubmission: '验证提交',
     sureCancelSubmission: '您确定要取消提交吗?',
     cancelSuccess: '提交成功取消!',
+    rerun: '重新执行',
+    resume: '恢复',
   },
   leaderboard: {
     team: '团队',

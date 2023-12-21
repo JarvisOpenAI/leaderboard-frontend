@@ -45,6 +45,8 @@ export const errorMsg = [
   { zh: '您不是参与者!', en: 'You are not a participant!' },
   { zh: '在同一比赛中代号的字段必须是唯一的', en: 'The fields codename, challenge must make a unique set.' },
   { zh: '您不是这个团队的一员!', en: 'You are not a member of this team!' },
+  { zh: '只有失败的提交才能恢复', en: 'Only failed submissions can be resumed' },
+  { zh: '只有比赛管理员被允许重新运行提交', en: 'Only challenge hosts or admins are allowed to re-run a submission' },
 ];
 
 export function getErrMsg(msg) {

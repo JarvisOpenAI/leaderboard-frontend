@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "38653895",
+      "name": "kaishi",
+      "font_class": "kaishi",
+      "unicode": "e6ee",
+      "unicode_decimal": 59118
+    },
+    {
+      "icon_id": "38653894",
+      "name": "yunxing",
+      "font_class": "yunxing",
+      "unicode": "e6ef",
+      "unicode_decimal": 59119
+    },
+    {
       "icon_id": "38487965",
       "name": "rili",
       "font_class": "rili",
