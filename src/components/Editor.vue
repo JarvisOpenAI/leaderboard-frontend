@@ -1,6 +1,6 @@
 <template>
   <div class="editor">
-    <Toolbar style="border-bottom: 1px solid #434d60" :editor="editorRef" :defaultConfig="toolbarConfig" mode="simple" />
+    <Toolbar style="border-bottom: 1px solid #434d60" :editor="editorRef" :defaultConfig="toolbarConfig" mode="default" />
     <Editor
       style="height: 140px; overflow-y: hidden"
       :model-value="modelValue"
@@ -25,7 +25,7 @@ const editorRef = shallowRef();
 const { locale } = useI18n();
 
 const toolbarConfig = {
-  excludeKeys: ['group-image', 'insertLink', 'insertVideo', 'fullScreen'],
+  excludeKeys: ['group-more-style', 'emotion', 'insertLink', 'group-image', 'group-video', 'insertVideo', 'divider', 'fullScreen'],
 };
 const editorConfig = { placeholder: '' };
 onBeforeMount(() => {

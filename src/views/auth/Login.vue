@@ -39,12 +39,13 @@
 import { onMounted, ref, reactive } from 'vue';
 import { encrypt, decrypt } from '@/utils/jsencrypt';
 import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { useStore } from 'vuex';
 
 const store = useStore();
 const { t } = useI18n();
 const router = useRouter();
+const route = useRoute();
 
 const form = reactive({
   username: '',
@@ -85,7 +86,7 @@ const submit = () => {
     })
     .then((res) => {
       loading.close();
-      router.push('/');
+      router.push(route.query.redirect || '/challenge');
     })
     .catch((error) => {
       loading.close();

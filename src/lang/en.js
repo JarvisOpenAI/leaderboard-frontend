@@ -317,7 +317,7 @@ export default {
     startDate_utc: 'Start Date(UTC)',
     endDate_utc: 'End Date(UTC)',
     creator: 'Creator',
-    publicyAvailable: 'Publicy Available',
+    publicyAvailable: 'Published',
     isRegistrationOpen: 'Is Registration Open',
     enableForum: 'Enable Forum',
     createPhases: 'Create Phases',

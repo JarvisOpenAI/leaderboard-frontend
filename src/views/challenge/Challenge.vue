@@ -11,8 +11,7 @@
         <div class="custom-tag">{{ formatTime(item.start_date) }} -- {{ formatTime(item.end_date) }}</div>
       </div>
     </div>
-    <!-- :style="{ backgroundImage: 'url(' + item.image + ')' }" -->
-    <div class="right-con"></div>
+    <div class="right-con" :style="{ backgroundImage: item.image ? 'url(' + item.image + ')' : 'url(' + racePng + ')' }"></div>
   </div>
   <el-button link @click="loadMore" v-if="pager.total > pager.pageNum * pager.pageSize">
     <svg class="icon mr8" aria-hidden="true">
@@ -27,6 +26,7 @@ import { onMounted, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { getAllChallenges } from '@/api/host';
 import { formatTime } from '@/utils/tool';
+import racePng from '../../assets/images/race.png';
 
 const router = useRouter();
 const raceInfo = ref([
@@ -85,7 +85,7 @@ const loadMore = () => {
     width: 439px;
     flex-shrink: 0;
     background: url(@/assets/images/race.png) no-repeat center;
-    background-size: contain;
+    background-size: cover;
     margin-left: 93px;
   }
 }

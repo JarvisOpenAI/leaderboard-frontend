@@ -25,14 +25,15 @@
           <submission
             :challengeId="challengeId"
             :approved="teamDetail.approved"
-            :allowCancel="allowCancel"
+            :allowCancel="detailInfo.allow_cancel_running_submissions"
+            :guidelines="detailInfo.submission_guidelines"
             :phases="phases"
             @callback="deregister"></submission>
         </el-tab-pane>
         <el-tab-pane :label="$t('challenge.leaderboard')" name="leaderboard">
-          <leader-board :challengeId="challengeId"></leader-board>
+          <leader-board :challengeId="challengeId" :description="detailInfo.leaderboard_description"></leader-board>
         </el-tab-pane>
-        <el-tab-pane :label="$t('challenge.approval')" name="approval" v-if="isChallengeHost && manualApproval">
+        <el-tab-pane :label="$t('challenge.approval')" name="approval" v-if="isChallengeHost && detailInfo.manual_participant_approval">
           <approval :challengeId="challengeId"></approval>
         </el-tab-pane>
         <el-tab-pane :label="$t('challenge.allSubmission')" name="allSubmission" v-if="isChallengeHost">
@@ -117,8 +118,6 @@ const deregister = () => {
 };
 
 const isChallengeHost = ref(false); // 是否是该比赛的主办方
-const manualApproval = ref(false); // 比赛团队是否需要人工审核
-const allowCancel = ref(false); // 是否允许取消正在执行的任务
 const getUserRole = () => {
   getChallengeUser(challengeId).then((res) => {
     isChallengeHost.value = res.is_challenge_host;
@@ -127,8 +126,6 @@ const getUserRole = () => {
 
 const challengeDetail = () => {
   getChallengeDetail(challengeId).then((res) => {
-    manualApproval.value = res.manual_participant_approval;
-    allowCancel.value = res.allow_cancel_running_submissions;
     detailInfo.value = res || {};
   });
 };
