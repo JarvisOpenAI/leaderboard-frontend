@@ -41,19 +41,19 @@
       </div>
       <div class="flex-between item">
         <div class="label">{{ $t('user.firstName') }}</div>
-        <el-input v-model.trim="form.first_name" placeholder="-" maxlength="32"></el-input>
+        <el-input v-model.trim="form.first_name" placeholder="-" maxlength="150"></el-input>
       </div>
       <div class="flex-between item">
         <div class="label">{{ $t('user.lastName') }}</div>
-        <el-input v-model.trim="form.last_name" placeholder="-" maxlength="32"></el-input>
+        <el-input v-model.trim="form.last_name" placeholder="-" maxlength="150"></el-input>
       </div>
       <div class="flex-between item">
         <div class="label">{{ $t('user.affilliate') }}</div>
-        <el-input v-model.trim="form.affiliation" placeholder="-" maxlength="32"></el-input>
+        <el-input v-model.trim="form.affiliation" placeholder="-" maxlength="512"></el-input>
       </div>
       <div class="flex-between item">
         <div class="label">GITHUB</div>
-        <el-input v-model.trim="form.github_url" placeholder="-" maxlength="32"></el-input>
+        <el-input v-model.trim="form.github_url" placeholder="-" maxlength="200"></el-input>
       </div>
     </div>
     <div class="footer">
@@ -75,7 +75,7 @@
           type="password"
           v-model.trim="passwordDialog.old_password"
           :placeholder="$t('user.oldPasswordPH')"
-          maxlength="32"
+          maxlength="128"
           show-password></el-input>
       </el-form-item>
       <el-form-item :label="$t('user.newPassword')" prop="new_password1">
@@ -83,7 +83,7 @@
           type="password"
           v-model.trim="passwordDialog.new_password1"
           :placeholder="$t('user.newPasswordPH')"
-          maxlength="32"
+          maxlength="128"
           show-password></el-input>
       </el-form-item>
       <el-form-item :label="$t('user.confirmpw')" prop="new_password2">
@@ -91,7 +91,7 @@
           type="password"
           v-model.trim="passwordDialog.new_password2"
           :placeholder="$t('user.confirmpwPH')"
-          maxlength="32"
+          maxlength="128"
           show-password
           @keypress.enter="passwordSubmit"></el-input>
       </el-form-item>

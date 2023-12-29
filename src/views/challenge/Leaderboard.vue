@@ -19,7 +19,7 @@
     <el-table-column fixed prop="rank" :label="$t('leaderboard.rank')" width="80" />
     <el-table-column fixed sortable prop="submission__participant_team__team_name" :label="$t('leaderboard.team')" width="250" />
     <!-- <el-table-column sortable prop="filtering_score" :label="$t('leaderboard.score')" /> -->
-    <el-table-column sortable :label="label" v-for="(label, i) in labels" :key="label" min-width="280">
+    <el-table-column sortable :label="label" v-for="(label, i) in labels" :key="label" width="280">
       <template #default="{ row }">
         {{ row.result[i] }}
       </template>
@@ -33,7 +33,7 @@
           return formatTime(row.submission__submitted_at);
         }
       "
-      min-width="200" />
+      width="200" />
   </el-table>
 </template>
 

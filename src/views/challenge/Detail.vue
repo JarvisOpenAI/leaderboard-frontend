@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="banner"></div>
+    <div class="banner" :style="{ backgroundImage: detailInfo.image ? 'url(' + detailInfo.image + ')' : 'url(' + getImageUrl('banner') + ')' }"></div>
     <div class="digest">
       <div class="flex-between mb20" style="height: 32px">
         <div class="title">{{ detailInfo.title }}</div>
@@ -59,6 +59,10 @@ import { setJwtToken } from '@/utils/auth';
 import { useI18n } from 'vue-i18n';
 import { formatTime, oaMessageBox } from '@/utils/tool';
 import { useStore } from 'vuex';
+
+const getImageUrl = (name) => {
+  return new URL(`../../assets/images/${name}.png`, import.meta.url).href;
+};
 
 const { t } = useI18n();
 const route = useRoute();
@@ -134,7 +138,8 @@ const challengeDetail = () => {
 <style lang="scss" scoped>
 .banner {
   height: 248px;
-  background: url('@/assets/images/banner.png') no-repeat;
+  background-repeat: no-repeat;
+  background-position: center;
   background-size: cover;
 }
 .digest {

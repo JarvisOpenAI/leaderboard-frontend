@@ -111,8 +111,8 @@ const onFileChange = (uploadFile) => {
   if (!uploadFile.raw.type.startsWith('image/')) {
     ElMessage.error('Please select a picture!');
     return false;
-  } else if (uploadFile.raw.size / 1024 / 1024 > 2) {
-    ElMessage.error('Picture size can not exceed 2MB!');
+  } else if (uploadFile.raw.size / 1024 / 1024 > 5) {
+    ElMessage.error('Picture size can not exceed 5MB!');
     return false;
   }
   ruleForm.image = uploadFile.raw;
@@ -214,6 +214,9 @@ onMounted(() => {
         position: relative;
         overflow: hidden;
         transition: var(--el-transition-duration-fast);
+        img {
+          max-width: 100%;
+        }
       }
       .avatar-uploader-icon {
         width: 260px;

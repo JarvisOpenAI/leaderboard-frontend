@@ -101,7 +101,7 @@
           <span :class="['submis-status', row.status]">{{ row.status?.charAt(0).toUpperCase() + row.status.slice(1) }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="execution_time" :label="$t('submission.executTime')" min-width="150" />
+      <el-table-column prop="execution_time" :label="$t('submission.executTime')" width="160" />
       <!-- <el-table-column prop="input_file" :label="$t('submission.submittedFile')">
         <template #default="{ row }">
           <el-link type="primary" v-if="row.input_file" :href="row.input_file" target="_blank">Link</el-link>
@@ -134,8 +134,8 @@
             return formatTime(row.submitted_at);
           }
         "
-        min-width="200" />
-      <el-table-column prop="is_public" :label="$t('submission.showOnLeaderboard')" min-width="160">
+        width="200" />
+      <el-table-column prop="is_public" :label="$t('submission.showOnLeaderboard')" width="170">
         <template #default="{ row }">
           <el-switch
             v-model="row.is_public"

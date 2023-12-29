@@ -12,7 +12,7 @@
     :validate-on-rule-change="false"
     require-asterisk-position="right">
     <el-form-item :label="$t('login.username')" prop="username">
-      <el-input v-model.trim="form.username" :placeholder="$t('login.usernamePH')" class="input-item" maxlength="32"></el-input>
+      <el-input v-model.trim="form.username" :placeholder="$t('login.usernamePH')" class="input-item" maxlength="150"></el-input>
     </el-form-item>
     <el-form-item :label="$t('login.password')" prop="password">
       <el-input
@@ -21,7 +21,7 @@
         v-model.trim="form.password"
         :placeholder="$t('login.passwordPH')"
         @keypress.enter="validateForm"
-        maxlength="32"
+        maxlength="128"
         show-password></el-input>
     </el-form-item>
     <!-- <el-form-item style="margin-top: 18px">
