@@ -115,7 +115,7 @@ service.interceptors.response.use(
       message = getErrMsg(response.data.error);
     } else if (response.status == 401 && response.data?.detail) {
       message = getErrMsg(response.data.detail);
-      if (response.data.detail === 'Invalid token') {
+      if (response.data.detail === 'Invalid token' || response.data.detail === 'Token has expired') {
         store.dispatch('logOut').then(() => {
           location.href = '/';
         });

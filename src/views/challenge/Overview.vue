@@ -6,7 +6,7 @@
     <el-collapse-item :title="$t('overview.eval.title')" name="2">
       <div v-html="detailInfo.evaluation_details" class="editor-content-view"></div>
     </el-collapse-item>
-    <el-collapse-item :title="$t('overview.term.title')" name="3">
+    <el-collapse-item :title="$t('overview.term.title')" name="3" id="term">
       <div v-html="detailInfo.terms_and_conditions" class="editor-content-view"></div>
     </el-collapse-item>
     <el-collapse-item :title="$t('overview.phase')" name="4">
@@ -69,7 +69,7 @@ const props = defineProps({
 
 .el-collapse {
   border: none;
-  margin-top: -20px;
+  margin-top: -16px;
 }
 :deep(.el-collapse-item__header) {
   font-size: 14px;

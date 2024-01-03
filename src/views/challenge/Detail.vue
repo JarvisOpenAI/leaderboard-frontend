@@ -19,7 +19,7 @@
           <overview :detailInfo="detailInfo" :phases="phases"></overview>
         </el-tab-pane>
         <el-tab-pane :label="$t('challenge.participate')" name="participate" v-if="!teamDetail">
-          <participate :challengeId="challengeId" @callback="getPartTeam('submission')"></participate>
+          <participate :challengeId="challengeId" @callback="getPartTeam('submission')" @openTerm="openTerm"></participate>
         </el-tab-pane>
         <el-tab-pane :label="$t('challenge.submission')" name="submission" v-else>
           <submission
@@ -79,6 +79,14 @@ const getPartTeam = (tabId) => {
       activeName.value = tabId;
     }
   });
+};
+
+const openTerm = () => {
+  activeName.value = 'overview';
+  setTimeout(() => {
+    let dom = document.querySelector('#term');
+    dom && dom.scrollIntoView();
+  }, 200);
 };
 const clearPartTeam = (tabId) => {
   teamDetail.value = undefined;
