@@ -19,13 +19,11 @@
 
 ## Features
 
-- **Custom evaluation protocols and phases**: We allow creation of an arbitrary number of evaluation phases and dataset splits, compatibility using any programming language, and organizing results in both public and private leaderboards.
-
-- **Remote evaluation**: Certain large-scale challenges need special compute capabilities for evaluation. If the challenge needs extra computational power, challenge organizers can easily add their own cluster of worker nodes to process participant submissions while we take care of hosting the challenge, handling user submissions, and maintaining the leaderboard.
+- **CLI support**: [arena-cli](https://github.com/guardstrikelab/arena-cli) is designed to extend the functionality of the Arena web application to your command line to make the platform more accessible and terminal-friendly.
 
 - **Evaluation inside environments**: Arena lets participants submit code for their agent in the form of docker images which are evaluated against test environments on the evaluation server. During evaluation, the worker fetches the image, test environment, and the model snapshot and spins up a new container to perform evaluation.
 
-- **CLI support**: [arena-cli](https://github.com/guardstrikelab/arena-cli) is designed to extend the functionality of the Arena web application to your command line to make the platform more accessible and terminal-friendly.
+- **Remote evaluation**: Certain large-scale challenges need special compute capabilities for evaluation. If the challenge needs extra computational power, challenge organizers can easily add their own cluster of worker nodes to process participant submissions while we take care of hosting the challenge, handling user submissions, and maintaining the leaderboard.
 
 - **Portability**: Arena is designed with keeping in mind scalability and portability of such a system from the very inception of the idea. Most of the components rely heavily on open-source technologies – Docker, Django, Node.js, and PostgreSQL.
 
