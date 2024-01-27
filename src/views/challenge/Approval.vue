@@ -9,16 +9,16 @@
         {{ row.members.map((item) => item.member_name).join(';') }}
       </template>
     </el-table-column>
-    <el-table-column :label="$t('approval.state')">
+    <el-table-column :label="$t('approval.approval')" width="200">
       <template #default="{ row }">
-        <span :class="['approval-status', row.approved ? 'approve' : 'disagree']">
-          {{ row.approved ? $t('approval.approve') : $t('approval.disagree') }}
-        </span>
-      </template>
-    </el-table-column>
-    <el-table-column :label="$t('operate')" width="120">
-      <template #default="{ row }">
-        <el-switch v-model="row.approved" size="small" :before-change="() => false" @click="handleApproval(row)" />
+        <el-switch
+          v-model="row.approved"
+          size="small"
+          style="--el-switch-on-color: #13ce66"
+          :active-text="$t('approval.approve')"
+          :inactive-text="$t('approval.disagree')"
+          :before-change="() => false"
+          @click="handleApproval(row)" />
       </template>
     </el-table-column>
   </el-table>
@@ -99,6 +99,12 @@ const disapprove = (row) => {
     &::before {
       background-color: #e6595a;
     }
+  }
+}
+:deep(.el-switch__label) {
+  color: #a3a6ad;
+  &.is-active {
+    color: var(--el-color-primary);
   }
 }
 </style>
